@@ -1,0 +1,68 @@
+package Entities;
+
+import java.util.Scanner;
+
+public class Consola {
+    Scanner scan = new Scanner(System.in).useDelimiter("\n");
+    public Armadura armadura;
+
+    public Consola(Armadura armadura) {
+        this.armadura = armadura;
+    }
+
+    public Consola() {
+        this.armadura = crearArmadura();
+    }
+
+    private Armadura crearArmadura() {
+        System.out.println("Ingrese el color primario de la aramdura");     //string
+        String c1 = scan.next();
+        System.out.println("Ingrese el color secundario de la aramdura");       //string
+        String c2 = scan.next();
+        System.out.println("Ingrese el valor numerico de la resistencia de la armadura");       //int
+        String a1 = scan.next();
+        System.out.println("Ingrese la salud de la armadura");      //int
+        String a2 = scan.next();
+        System.out.println("Ingrese el porcentaje de consumo de energia de las botas");     //int
+        String a3 = scan.next();
+        System.out.println("Ingrese el porcentaje de consumo de energia de los guantes");       //int
+        String a4 = scan.next();
+        return new Armadura(parseNum(a1), c1, c2, parseNumB(a2), parseNum(a3), parseNum(a4));     // armadura parametrizada
+    }
+
+    private int parseNumB(String s){
+        int aux;
+        try {
+            aux = Integer.parseInt(s);
+        }catch(Exception e){
+            System.err.println("Error, valor será por defecto");
+            aux = 100;
+        }
+        return aux;
+    }
+    private int parseNum(String s){
+        int aux;
+        try {
+          aux = Integer.parseInt(s);
+        }catch(Exception e){
+            System.err.println("Error, valor será por defecto");
+            aux = 1;
+        }
+        return aux;
+    }
+
+    public void estadoArmadura(){
+        System.out.println("___________________________________________");
+        System.out.println("El estado de la armadura es el siguiente: ");
+        System.out.println("Nivel de salud de la armadura: "+ armadura.getSalud()+"%");
+        System.out.println("porcentaje de bateria actual: "+ armadura.getPorcentajeBateria()+"%");
+        System.out.println("Consumo energetico de guantes:"+armadura.getGuantes().getConsumoBase()+"%");
+        System.out.println("Consumo energetico de botas:"+armadura.getBotas().getConsumoBase()+"%");
+    }
+
+    public void caminar(){
+        System.out.println("Ingrese cuanto tiempo va a caminar");
+        armadura.caminar(scan.nextInt());
+    }
+
+}
